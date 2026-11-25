@@ -292,6 +292,7 @@ When an input is invalid, associate the error message directly with the input us
 ```html
 <div>
   <label for="national-id">National ID Number</label>
+  <!-- Set aria-invalid="true" only after this field fails validation. -->
   <input 
     type="text" 
     id="national-id" 
@@ -734,6 +735,7 @@ document.addEventListener('DOMContentLoaded', () => {
     notesError.hidden = true;
     notesError.textContent = '';
     notesTextarea.removeAttribute('aria-invalid');
+    // Reset and clear all validation state before evaluating the next submission.
     serviceError.hidden = true;
     serviceError.textContent = '';
     serviceSelect.removeAttribute('aria-invalid');
@@ -741,6 +743,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!form.checkValidity()) {
       if (!serviceSelect.value) {
+        // Associate a visible, announced error with the field that caused this branch.
         serviceSelect.setAttribute('aria-invalid', 'true');
         serviceSelect.setAttribute('aria-describedby', 'service-error');
         serviceError.textContent = 'Please select a service before submitting.';
